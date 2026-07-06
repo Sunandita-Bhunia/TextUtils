@@ -7,6 +7,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Add top padding to avoid content being hidden behind fixed navbar */
+@media (min-width: 0px) {
+  body {
+    padding-top: 70px;
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
