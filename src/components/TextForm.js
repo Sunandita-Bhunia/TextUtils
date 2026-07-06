@@ -14,6 +14,28 @@ export default function TextForm(props) {
       setText(newText);
     };
 
+    const handleAlternateCase = () => {
+      let newText = "";
+
+      for (let i = 0; i < text.length; i++) {
+        if (i % 2 === 0) {
+          newText += text[i].toLowerCase();
+        } else {
+          newText += text[i].toUpperCase();
+        }
+      }
+
+      setText(newText);
+    };
+
+    const handleClearClick = () => {
+      setText("");
+    };
+
+    const handleCopyClick = () => {
+      navigator.clipboard.writeText(text);
+    };
+
     const handleOnChange = (event) => {
       setText(event.target.value);
     };
@@ -42,6 +64,15 @@ export default function TextForm(props) {
         </button>
         <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleLoClick}>
           Convert to LowerCase
+        </button>
+        <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleAlternateCase}>
+          Alternate Case
+        </button>
+        <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleClearClick}>
+          Clear Text
+        </button>
+        <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleCopyClick}>
+          Copy Text
         </button>
       </form>
     </div>
