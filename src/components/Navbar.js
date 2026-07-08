@@ -44,7 +44,10 @@ export default function Navbar(props) {
               placeholder="Search"
               aria-label="Search"
             />
-            <button className="btn btn-outline-light" type="submit">
+            <button
+              type="button"
+              className={`btn btn-primary mx-1 my-1 ${props.mode === 'light' ? 'text-dark' : ''}`}
+            >
               Search
             </button>
           </form>
