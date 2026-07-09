@@ -7,11 +7,13 @@ export default function TextForm(props) {
     const handleUpClick = () => {
       let newText = text.toUpperCase();
       setText(newText);
+      props.showAlert("Converted to upperCase!", "success");
     };
 
     const handleLoClick = () => {
       let newText = text.toLowerCase();
       setText(newText);
+      props.showAlert("Converted to lowerCase!", "success");
     };
 
     const handleAlternateCase = () => {
@@ -26,19 +28,23 @@ export default function TextForm(props) {
       }
 
       setText(newText);
+      props.showAlert("Converted to AlternetCase!", "success");
     };
 
     const handleClearClick = () => {
       setText("");
+      props.showAlert("Text Area is clear now!", "success");
     };
 
     const handleCopyClick = () => {
       navigator.clipboard.writeText(text);
+      props.showAlert("Copied to clipboard!", "success");
     };
 
     const handleExtraSpaces = () => {
       let newText = text.split(/\s+/).join(" ");
       setText(newText.trim());
+      props.showAlert("Extra spaces removed!", "success");
     };
 
     const handleOnChange = (event) => {
