@@ -2,16 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.css';
 
-export default function Navbar(props) {
+const THEME_SWITCHES = [
+  { id: 'switchCheckDark', theme: 'dark', label: 'Enable Dark Mode' },
+  { id: 'switchCheckGrey', theme: 'grey', label: 'Enable Grey Dark Mode' },
+  { id: 'switchCheckRed', theme: 'red', label: 'Enable Red Dark Mode' },
+  { id: 'switchCheckGreen', theme: 'green', label: 'Enable Green Dark Mode' },
+  { id: 'switchCheckBlue', theme: 'blue', label: 'Enable Blue Dark Mode' },
+];
+
+export default function Navbar({ title, aboutText, theme, navbarMode, toggleTheme }) {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
   };
 
+  const labelClass = navbarMode === 'light' ? 'text-dark' : 'text-light';
+
   return (
-    <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode} navbar-custom fixed-top`}>
+    <nav className={`navbar navbar-expand-lg navbar-${navbarMode} bg-${navbarMode} navbar-custom fixed-top`}>
       <div className="container-fluid">
         <a className="navbar-brand" href="#home">
-          {props.title}
+          {title}
         </a>
         <button
           className="navbar-toggler"
@@ -33,7 +43,7 @@ export default function Navbar(props) {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#about">
-                {props.aboutText}
+                {aboutText}
               </a>
             </li>
           </ul>
@@ -46,15 +56,27 @@ export default function Navbar(props) {
             />
             <button
               type="button"
-              className={`btn btn-primary mx-1 my-1 ${props.mode === 'light' ? 'text-dark' : ''}`}
+              className={`btn btn-primary mx-1 my-1 ${navbarMode === 'light' ? 'text-dark' : ''}`}
             >
               Search
             </button>
           </form>
-          <div className={`form-check form-switch text-${props.mode === 'light' ? 'dark' : 'light'} mx-3`}>
-            <input className="form-check-input" onClick={props.toggleMode} type="checkbox" role="switch" id="switchCheckDefault"/>
-            <label className="form-check-label" htmlFor="switchCheckDefault">Enable Dark Mode</label>
-          </div>
+
+          {THEME_SWITCHES.map(({ id, theme: themeName, label }) => (
+            <div key={id} className={`form-check form-switch ${labelClass} mx-3`}>
+              <input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                id={id}
+                checked={theme === themeName}
+                onChange={() => toggleTheme(themeName)}
+              />
+              <label className="form-check-label" htmlFor={id}>
+                {label}
+              </label>
+            </div>
+          ))}
         </div>
       </div>
     </nav>
@@ -63,7 +85,10 @@ export default function Navbar(props) {
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
-  aboutText: PropTypes.string.isRequired,
+  aboutText: PropTypes.string,
+  theme: PropTypes.string.isRequired,
+  navbarMode: PropTypes.string.isRequired,
+  toggleTheme: PropTypes.func.isRequired,
 };
 
 Navbar.defaultProps = {

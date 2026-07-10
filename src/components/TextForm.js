@@ -1,91 +1,154 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import './TextForm.css';
 
-export default function TextForm(props) {
+export default function TextForm({ showAlert, heading, theme }) {
+  const [text, setText] = useState('');
 
-    const [text, setText] = useState("");
+  const handleUpClick = () => {
+    const newText = text.toUpperCase();
+    setText(newText);
+    showAlert('Converted to upperCase!', 'success');
+  };
 
-    const handleUpClick = () => {
-      let newText = text.toUpperCase();
-      setText(newText);
-      props.showAlert("Converted to upperCase!", "success");
-    };
+  const handleLoClick = () => {
+    const newText = text.toLowerCase();
+    setText(newText);
+    showAlert('Converted to lowerCase!', 'success');
+  };
 
-    const handleLoClick = () => {
-      let newText = text.toLowerCase();
-      setText(newText);
-      props.showAlert("Converted to lowerCase!", "success");
-    };
+  const handleAlternateCase = () => {
+    let newText = '';
 
-    const handleAlternateCase = () => {
-      let newText = "";
-
-      for (let i = 0; i < text.length; i++) {
-        if (i % 2 === 0) {
-          newText += text[i].toLowerCase();
-        } else {
-          newText += text[i].toUpperCase();
-        }
+    for (let i = 0; i < text.length; i++) {
+      if (i % 2 === 0) {
+        newText += text[i].toLowerCase();
+      } else {
+        newText += text[i].toUpperCase();
       }
+    }
 
-      setText(newText);
-      props.showAlert("Converted to AlternetCase!", "success");
-    };
+    setText(newText);
+    showAlert('Converted to AlternetCase!', 'success');
+  };
 
-    const handleClearClick = () => {
-      setText("");
-      props.showAlert("Text Area is clear now!", "success");
-    };
+  const handleClearClick = () => {
+    setText('');
+    showAlert('Text Area is clear now!', 'success');
+  };
 
-    const handleCopyClick = () => {
-      navigator.clipboard.writeText(text);
-      props.showAlert("Copied to clipboard!", "success");
-    };
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(text);
+    showAlert('Copied to clipboard!', 'success');
+  };
 
-    const handleExtraSpaces = () => {
-      let newText = text.split(/\s+/).join(" ");
-      setText(newText.trim());
-      props.showAlert("Extra spaces removed!", "success");
-    };
+  const handleExtraSpaces = () => {
+    const newText = text.split(/\s+/).join(' ');
+    setText(newText.trim());
+    showAlert('Extra spaces removed!', 'success');
+  };
 
-    const handleOnChange = (event) => {
-      setText(event.target.value);
-    };
+  const handleOnChange = (event) => {
+    setText(event.target.value);
+  };
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  const buttonStyle = {
+    '--btn-bg': theme.buttonBg,
+    '--btn-hover': theme.buttonHover,
+    '--btn-text': theme.buttonText,
+  };
+
+  const textareaStyle = {
+    backgroundColor: theme.textareaBg,
+    color: theme.textareaText,
+    borderColor: theme.textareaBorder,
+    '--btn-bg': theme.buttonBg,
+  };
+
+  const textStyle = { color: theme.text };
+
+  const wordCount = text.trim().split(/\s+/).filter((word) => word !== "").length;
 
   return (
     <>
-    <div className="container my-3" style={{ color: props.mode === 'light' ? '#194340' : 'white' }}>
-      <form onSubmit={handleSubmit}>
-        <h1>{props.heading}</h1>
-        <div className="mb-3">
+      <div className="container my-3" style={textStyle}>
+        <form onSubmit={handleSubmit}>
+          <h1>{heading}</h1>
+          <div className="mb-3">
             <textarea
-              className="form-control"
+              className="form-control theme-textarea"
               value={text}
-              placeholder='Enter text here'
+              placeholder="Enter text here"
               onChange={handleOnChange}
               id="myBox"
               rows="8"
-              style={{ backgroundColor: props.mode === 'light' ? 'white' : '#042743', color: props.mode === 'light' ? '#194340' : 'white' }}
+              style={textareaStyle}
             ></textarea>
-        </div>
-        <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Convert to UpperCase</button>
-        <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleLoClick}>Convert to LowerCase</button>
-        <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleAlternateCase}>Alternate Case</button>
-        <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleClearClick}>Clear Text</button>
-        <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleCopyClick}>Copy Text</button>
-        <button type="button" className="btn btn-primary mx-1 my-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
-      </form>
-    </div>
-    <div className="container my-2" style={{ color: props.mode === 'light' ? '#194340' : 'white' }}>
-      <h1>Your text summary</h1>
-      <p>{text.split(" ").length} words and {text.length} characters</p>
-      <p>{0.008 * text.split(" ").length} minutes read</p>
-      <h3>Preview</h3>
-      <p>{text.length > 0 ? text : "Enter text in the box above to preview it here."}</p>
-    </div>
+          </div>
+          <button
+            type="button"
+            className="btn theme-btn mx-1 my-1"
+            style={buttonStyle}
+            onClick={handleUpClick}
+          >
+            Convert to UpperCase
+          </button>
+          <button
+            type="button"
+            className="btn theme-btn mx-1 my-1"
+            style={buttonStyle}
+            onClick={handleLoClick}
+          >
+            Convert to LowerCase
+          </button>
+          <button
+            type="button"
+            className="btn theme-btn mx-1 my-1"
+            style={buttonStyle}
+            onClick={handleAlternateCase}
+          >
+            Alternate Case
+          </button>
+          <button
+            type="button"
+            className="btn theme-btn mx-1 my-1"
+            style={buttonStyle}
+            onClick={handleClearClick}
+          >
+            Clear Text
+          </button>
+          <button
+            type="button"
+            className="btn theme-btn mx-1 my-1"
+            style={buttonStyle}
+            onClick={handleCopyClick}
+          >
+            Copy Text
+          </button>
+          <button
+            type="button"
+            className="btn theme-btn mx-1 my-1"
+            style={buttonStyle}
+            onClick={handleExtraSpaces}
+          >
+            Remove Extra Spaces
+          </button>
+        </form>
+      </div>
+      <div className="container my-2" style={textStyle}>
+        <h1>Your text summary</h1>
+        <p>{wordCount} words and {text.length} characters</p>
+        <p>{(0.008 * wordCount).toFixed(3)} minutes read</p>
+        <h3>Preview</h3>
+        <p>
+          {text.length > 0
+            ? text
+            : "Enter text in the box above to preview it here."}
+        </p>
+      </div>
     </>
-  )
+  );
 }
