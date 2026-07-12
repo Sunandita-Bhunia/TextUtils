@@ -55,6 +55,8 @@ export default function TextForm({ showAlert, heading, theme }) {
     event.preventDefault();
   };
 
+  const isEmpty = text.trim().length === 0;
+
   const buttonStyle = {
     '--btn-bg': theme.buttonBg,
     '--btn-hover': theme.buttonHover,
@@ -76,7 +78,7 @@ export default function TextForm({ showAlert, heading, theme }) {
     <>
       <div className="container my-3" style={textStyle}>
         <form onSubmit={handleSubmit}>
-          <h1>{heading}</h1>
+          <h1 className='mb-4'>{heading}</h1>
           <div className="mb-3">
             <textarea
               className="form-control theme-textarea"
@@ -93,6 +95,7 @@ export default function TextForm({ showAlert, heading, theme }) {
             className="btn theme-btn mx-1 my-1"
             style={buttonStyle}
             onClick={handleUpClick}
+            disabled={isEmpty}
           >
             Convert to UpperCase
           </button>
@@ -101,6 +104,7 @@ export default function TextForm({ showAlert, heading, theme }) {
             className="btn theme-btn mx-1 my-1"
             style={buttonStyle}
             onClick={handleLoClick}
+            disabled={isEmpty}
           >
             Convert to LowerCase
           </button>
@@ -109,6 +113,7 @@ export default function TextForm({ showAlert, heading, theme }) {
             className="btn theme-btn mx-1 my-1"
             style={buttonStyle}
             onClick={handleAlternateCase}
+            disabled={isEmpty}
           >
             Alternate Case
           </button>
@@ -117,6 +122,7 @@ export default function TextForm({ showAlert, heading, theme }) {
             className="btn theme-btn mx-1 my-1"
             style={buttonStyle}
             onClick={handleClearClick}
+            disabled={isEmpty}
           >
             Clear Text
           </button>
@@ -125,6 +131,7 @@ export default function TextForm({ showAlert, heading, theme }) {
             className="btn theme-btn mx-1 my-1"
             style={buttonStyle}
             onClick={handleCopyClick}
+            disabled={isEmpty}
           >
             Copy Text
           </button>
@@ -133,6 +140,7 @@ export default function TextForm({ showAlert, heading, theme }) {
             className="btn theme-btn mx-1 my-1"
             style={buttonStyle}
             onClick={handleExtraSpaces}
+            disabled={isEmpty}
           >
             Remove Extra Spaces
           </button>
@@ -146,7 +154,7 @@ export default function TextForm({ showAlert, heading, theme }) {
         <p>
           {text.length > 0
             ? text
-            : "Enter text in the box above to preview it here."}
+            : "Nothing to preview!!"}
         </p>
       </div>
     </>

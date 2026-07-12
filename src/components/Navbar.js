@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.css';
+import { Link } from 'react-router-dom';
 
 const THEME_SWITCHES = [
-  { id: 'switchCheckDark', theme: 'dark', label: 'Enable Dark Mode' },
+  { id: 'switchCheckOlive', theme: 'olive', label: 'Enable Olive Dark Mode' },
   { id: 'switchCheckGrey', theme: 'grey', label: 'Enable Grey Dark Mode' },
   { id: 'switchCheckRed', theme: 'red', label: 'Enable Red Dark Mode' },
   { id: 'switchCheckGreen', theme: 'green', label: 'Enable Green Dark Mode' },
@@ -20,9 +21,9 @@ export default function Navbar({ title, aboutText, theme, navbarMode, toggleThem
   return (
     <nav className={`navbar navbar-expand-lg navbar-${navbarMode} bg-${navbarMode} navbar-custom fixed-top`}>
       <div className="container-fluid">
-        <a className="navbar-brand" href="#home">
+        <Link className="navbar-brand" to="/home">
           {title}
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -37,14 +38,10 @@ export default function Navbar({ title, aboutText, theme, navbarMode, toggleThem
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#home">
-                Home
-              </a>
+              <Link className="nav-link active" aria-current="page" to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#about">
-                {aboutText}
-              </a>
+              <Link className="nav-link" to="/about">About</Link>
             </li>
           </ul>
           <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>

@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import Alert from './components/Alert';
 import { THEMES } from './themes';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -35,21 +36,28 @@ function App() {
 
   return (
     <>
-      <Navbar
+      <Router>
+        <Navbar
         title="TextUtils"
         theme={theme}
         navbarMode={currentTheme.navbarMode}
         toggleTheme={toggleTheme}
-      />
-      <Alert alert={alert} />
-      <div className="container my-3">
-        <TextForm
-          showAlert={showAlert}
-          heading="Enter the text to analyze below"
-          theme={currentTheme}
         />
-      </div>
-      <About />
+        <Alert alert={alert} />
+        <div className="container my-3">
+          <Routes>
+            <Route path="/" element={
+                <TextForm
+                  showAlert={showAlert}
+                  heading="Try TextUtils - Word Counter, Character Counter, Convert to UpperCase, Convert to Lower Case, Remove Extra Spaces, Alternate Case, Clear Text, Copy Text"
+                  theme={currentTheme}
+                />
+              }
+            />
+            <Route path="/about" element={<About theme={currentTheme} />} />
+          </Routes>
+        </div>
+      </Router>
     </>
   );
 }

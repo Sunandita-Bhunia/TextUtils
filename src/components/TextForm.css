@@ -17,6 +17,20 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+.theme-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.theme-btn:disabled:hover {
+  background-color: var(--btn-bg);
+  border-color: var(--btn-bg);
+  transform: none;
+  box-shadow: none;
+}
+
 .theme-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
